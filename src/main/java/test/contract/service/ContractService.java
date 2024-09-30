@@ -43,7 +43,7 @@ public class ContractService {
         // 초안 데이터를 저장
         draft.putAll(investorData);
 
-        log.info("Received investor data: {}", investorData);  // 회사 정보 로그 출력
+        log.info("Received investor data: {}", investorData);  // 투자자 정보 로그 출력
 
         // PDF 초안 생성
         createContractDraft(investorData);
