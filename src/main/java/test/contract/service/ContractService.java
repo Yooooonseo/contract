@@ -7,12 +7,18 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import test.contract.domain.Member;
+import test.contract.domain.MemberRole;
+import test.contract.domain.VentureListInfo;
+import test.contract.repository.MemberRepository;
+import test.contract.repository.VentureListInfoRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +29,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ContractService {
 
     @Value("${file.storage.path}")

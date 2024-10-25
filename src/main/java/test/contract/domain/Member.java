@@ -1,21 +1,39 @@
 package test.contract.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
     private String name;
-    private LocalDate birthdate;
+    private LocalDate birthdate; //투자자 생년월일 추가
+
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String address;
+
+    @Enumerated(EnumType.STRING)
+    private MemberRole memberRole;
+
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private VentureListInfo ventureListInfo;
+
+    @OneToMany(mappedBy = "investor")
+    private List<Investment> investments; // 투자 내역
 
 
     // 기본 생성자
@@ -52,5 +70,12 @@ public class Member {
         this.birthdate = birthdate;
     }
 
+    // Member와 VentureListInfo 연결 설정 메소드 추가
+    public void setVentureListInfo(VentureListInfo ventureListInfo) {
+        this.ventureListInfo = ventureListInfo;
+        if (ventureListInfo != null) {
+            ventureListInfo.setMember(this);  // 연결된 VentureListInfo에 Member 설정
+        }
+    }
 
 }
